@@ -63,7 +63,7 @@ function createFeatures(earthquakeData) {
 function createMap(earthquakes) {
 
     // define streetmap and darkmap layers
-    var lightmap = L.titleLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+    var lightmap = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
         attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
         tileSize: 600,
         minZoom: 2,
@@ -84,7 +84,7 @@ function createMap(earthquakes) {
     var legend = L.control({position: 'bottomright'});
 
     legend.onAdd = function(map) {
-        var div = L.DomUtil.create("div", "info legend"),
+        var div = L.DomUtil.create("div", "info legend");
         var grades = [-10, 10, 30, 50, 70, 90];
         var colors= ["green", "lime", "chartreuse", "yellow", "orange", "red"];
 
