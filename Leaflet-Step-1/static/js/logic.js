@@ -65,13 +65,40 @@ function createMap(earthquakes) {
     // define streetmap and darkmap layers
     var lightmap = L.titleLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
         attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
-        tileSize: 516,
+        tileSize: 600,
         minZoom: 2,
         maxZoom: 18,
         zoomOffset: -1,
         id: "mapbox/light-v10",
         accessToken: API_KEY
     });
+
+    // create map with streetmap and earthquakes layer
+    var myMap = L.map("map", {
+        center: [25,0],
+        zoom: 2,
+        layers: [lightmap, earthquakes]
+    });
+
+    // add map legend
+    var legend = L.control({position: 'bottomright'});
+
+    legend.onAdd = function(map) {
+        var div = L.DomUtil.create("div", "info legend"),
+        var grades = [-10, 10, 30, 50, 70, 90];
+        var colors= ["green", "lime", "chartreuse", "yellow", "orange", "red"];
+
+        // loop through intervals and generate a label with a colored square for each interval
+        for (var i = 0; i < grades.length; i++) {
+            div.innerHTML +=
+            '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
+            grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+        }
+  
+    return div;
+    };
+
+    legend.addTo(myMap);
 }
 
     
